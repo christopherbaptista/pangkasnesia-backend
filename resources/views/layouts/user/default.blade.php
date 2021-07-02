@@ -19,17 +19,18 @@
 
 <body>
     {{-- Sidebar --}}
-    @include('includes.sidebar')
+
+    @include('includes.user.sidebar')
 
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
-        
+
         {{-- Navbar --}}
         @include('includes.navbar')
 
         <!-- Content -->
         <div class="content">
-            
+
             {{-- Default --}}
             @yield('content')
 

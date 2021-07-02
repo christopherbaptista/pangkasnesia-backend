@@ -7,6 +7,7 @@ use App\Models\ProductGallery;
 use App\Http\Requests\ProductRequest;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -20,7 +21,7 @@ class ProductController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -29,10 +30,17 @@ class ProductController extends Controller
     public function index()
     {
         $items = Product::all();
+        $role = Auth::user()->roles;
+        if($role==1){
+            return view('pages.admin.products.index')->with([
+                'items' => $items
+            ]);
+        }else{
+            return view('pages.user.products.index')->with([
+                'items' => $items
+            ]);
+        }
 
-        return view('pages.products.index')->with([
-            'items' => $items
-        ]);
     }
 
     /**
@@ -42,7 +50,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('pages.products.create');
+        return view('pages.admin.products.create');
     }
 
     /**
@@ -81,7 +89,7 @@ class ProductController extends Controller
     {
         $item = Product::findOrFail($id);
 
-        return view('pages.products.edit')->with([
+        return view('pages.admin.products.edit')->with([
             'item' => $item
         ]);
     }
@@ -122,14 +130,22 @@ class ProductController extends Controller
 
     public function gallery(Request $request, $id)
     {
+        $role = Auth::user()->roles;
         $product = Product::findorFail($id);
         $items = ProductGallery::with('product')
             ->where('products_id', $id)
             ->get();
-
-        return view('pages.products.gallery')->with([
-            'product' => $product,
-            'items' => $items
-        ]);
+        if($role == 1){
+            return view('pages.admin.products.gallery')->with([
+                'product' => $product,
+                'items' => $items
+            ]);
+        }
+        else{
+            return view('pages.user.products.gallery')->with([
+                'product' => $product,
+                'items' => $items
+            ]);
+        }
     }
 }

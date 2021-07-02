@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductGalleryRequest;
-use App\Models\Product;
-use App\Models\ProductGallery;
+use App\Models\Service;
+use App\Http\Requests\ServiceRequest;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
-class ProductGalleryController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -27,16 +28,15 @@ class ProductGalleryController extends Controller
      */
     public function index()
     {
-        $items = ProductGallery::with('product')->get();
+        $actions = Service::all();
         $role = Auth::user()->roles;
-
-        if($role == 1){
-            return view('pages.admin.product-galleries.index')->with([
-                'items' => $items
+        if($role==1){
+            return view('pages.admin.services.index')->with([
+                'actions' => $actions
             ]);
         }else{
-            return view('pages.user.product-galleries.index')->with([
-                'items' => $items
+            return view('pages.user.services.index')->with([
+                'actions' => $actions
             ]);
         }
 
@@ -49,11 +49,7 @@ class ProductGalleryController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
-
-        return view('pages.admin.product-galleries.create')->with([
-            'products' => $products
-        ]);
+        return view('pages.admin.services.create');
     }
 
     /**
@@ -62,15 +58,13 @@ class ProductGalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductGalleryRequest $request)
+    public function store(ServiceRequest $request)
     {
         $data = $request->all();
-        $data['photo'] = $request->file('photo')->store(
-            'assets/product', 'public'
-        );
+        $data['slug'] = Str::slug($request->name);
 
-        ProductGallery::create($data);
-        return redirect()->route('product-galleries.index');
+        Service::create($data);
+        return redirect()->route('services.index');
     }
 
     /**
@@ -92,7 +86,11 @@ class ProductGalleryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $action = Service::findOrFail($id);
+
+        return view('pages.admin.services.edit')->with([
+            'action' => $action
+        ]);
     }
 
     /**
@@ -102,9 +100,15 @@ class ProductGalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ServiceRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->name);
+
+        $action = Service::findOrFail($id);
+        $action->update($data);
+
+        return redirect()->route('services.index');
     }
 
     /**
@@ -115,9 +119,11 @@ class ProductGalleryController extends Controller
      */
     public function destroy($id)
     {
-        $item = ProductGallery::findOrFail($id);
-        $item->delete();
+        $action = Service::findOrFail($id);
+        $action->delete();
 
-        return redirect()->route('product-galleries.index');
+
+        return redirect()->route('services.index');
     }
+
 }

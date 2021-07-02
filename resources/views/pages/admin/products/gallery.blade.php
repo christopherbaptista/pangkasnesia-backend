@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.admin.default')
 
 @section('content')
     <div class="orders">
@@ -6,7 +6,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h4 class="box-title">Daftar Foto Produk</h4>
+              <h4 class="box-title">Daftar Foto Produk <small>"{{ $product->name }}"</small></h4>
             </div>
             <div class="card-body--">
               <div class="table-stats order-table ov-h">
@@ -30,8 +30,8 @@
                         </td>
                         <td>{{ $item->is_default ? 'Ya' : 'Tidak' }}</td>
                         <td>
-                          <form action="{{ route('product-galleries.destroy', $item->id) }}" 
-                                method="post" 
+                          <form action="{{ route('product-galleries.destroy', $item->id) }}"
+                                method="post"
                                 class="d-inline">
                             @csrf
                             @method('delete')

@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.admin.default')
 
 @section('content')
     <div class="orders">
@@ -63,8 +63,8 @@
                           <a href="{{ route('transactions.edit', $item->id) }}" class="btn btn-primary btn-sm">
                             <i class="fa fa-pencil"></i>
                           </a>
-                          <form action="{{ route('transactions.destroy', $item->id) }}" 
-                                method="post" 
+                          <form action="{{ route('transactions.destroy', $item->id) }}"
+                                method="post"
                                 class="d-inline">
                             @csrf
                             @method('delete')

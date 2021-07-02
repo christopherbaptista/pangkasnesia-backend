@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -11,9 +12,11 @@ class DashboardController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
+        $role = Auth::user()->roles;
+
         $income = Transaction::where('transaction_status','SUCCESS')->sum('transaction_total');
         $sales = Transaction::count();
         $items = Transaction::with('details')->orderBy('id','DESC')->take(5)->get();
@@ -23,11 +26,20 @@ class DashboardController extends Controller
             'success' => Transaction::where('transaction_status','SUCCESS')->count(),
         ];
 
-        return view('pages.dashboard')->with([
-            'income' => $income,
-            'sales' => $sales,
-            'items' => $items,
-            'pie' => $pie
-        ]);
+        if($role == '1'){
+            return view('pages.admin.dashboard')->with([
+                'income' => $income,
+                'sales' => $sales,
+                'items' => $items,
+                'pie' => $pie
+            ]);
+        }else{
+            return view('pages.user.dashboard')->with([
+                'income' => $income,
+                'sales' => $sales,
+                'items' => $items,
+                'pie' => $pie
+            ]);
+        }
     }
 }

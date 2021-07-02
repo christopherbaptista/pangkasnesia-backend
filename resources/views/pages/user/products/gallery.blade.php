@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.user.default')
 
 @section('content')
     <div class="orders">
@@ -17,7 +17,7 @@
                       <th>Nama Produk</th>
                       <th>Foto</th>
                       <th>Default</th>
-                      <th>Action</th>
+                      {{-- <th>Action</th> --}}
                     </tr>
                   </thead>
                   <tbody>
@@ -29,9 +29,9 @@
                           <img src="{{ url($item->photo) }}" alt="" />
                         </td>
                         <td>{{ $item->is_default ? 'Ya' : 'Tidak' }}</td>
-                        <td>
-                          <form action="{{ route('product-galleries.destroy', $item->id) }}" 
-                                method="post" 
+                        {{-- <td>
+                          <form action="{{ route('product-galleries.destroy', $item->id) }}"
+                                method="post"
                                 class="d-inline">
                             @csrf
                             @method('delete')
@@ -39,7 +39,7 @@
                               <i class="fa fa-trash"></i>
                             </button>
                           </form>
-                        </td>
+                        </td> --}}
                       </tr>
                     @empty
                         <tr>

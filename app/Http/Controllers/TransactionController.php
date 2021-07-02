@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -26,10 +27,18 @@ class TransactionController extends Controller
     public function index()
     {
         $items = Transaction::all();
+        $role = Auth::user()->roles;
 
-        return view('pages.transactions.index')->with([
-            'items' => $items
-        ]);
+        if($role == 1){
+            return view('pages.admin.transactions.index')->with([
+                'items' => $items
+            ]);
+        }else{
+            return view('pages.user.transactions.index')->with([
+                'items' => $items
+            ]);
+        }
+
     }
 
     /**
@@ -78,7 +87,7 @@ class TransactionController extends Controller
     {
         $item = Transaction::findOrFail($id);
 
-        return view('pages.transactions.edit')->with([
+        return view('pages.admin.transactions.edit')->with([
             'item' => $item
         ]);
     }

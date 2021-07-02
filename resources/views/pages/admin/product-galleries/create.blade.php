@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.admin.default')
 
 @section('content')
     <div class="card">
@@ -21,8 +21,8 @@
           <div class="form-group">
             <label for="photo" class="form-control-label">Foto Produk</label>
             <input  type="file"
-                    name="photo" 
-                    value="{{ old('photo') }}" 
+                    name="photo"
+                    value="{{ old('photo') }}"
                     accept="image/*"
                     required
                     class="form-control @error('photo') is-invalid @enderror"/>
@@ -33,15 +33,15 @@
             <br>
             <label>
               <input  type="radio" style="height:20px; width:20px;"
-                    name="is_default" 
-                    value="1" 
+                    name="is_default"
+                    value="1"
                     class="form-control @error('is_default') is-invalid @enderror"/> Yes
             </label>
             &nbsp;
             <label>
               <input  type="radio" style="height:20px; width:20px;"
-                    name="is_default" 
-                    value="0" 
+                    name="is_default"
+                    value="0"
                     class="form-control @error('is_default') is-invalid @enderror"/> No
             </label>
             @error('is_default') <div class="text-muted">{{ $message }}</div> @enderror

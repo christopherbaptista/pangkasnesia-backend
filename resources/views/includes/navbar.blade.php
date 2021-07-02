@@ -2,8 +2,7 @@
 <header id="header" class="header">
     <div class="top-left">
         <div class="navbar-header">
-            <a class="navbar-brand" href="./"><img src="{{ url('images/logo.png') }}" alt="Logo"></a>
-            <a class="navbar-brand hidden" href="./"><img src="{{ url('images/logo.png') }}" alt="Logo"></a>
+            <a class="navbar-brand" href="./"><img src="{{ url('images/logo-pangkasnesia.png') }}" alt="Logo"></a>
             <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
         </div>
     </div>
@@ -19,7 +18,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a onclick="event.preventDefault();
-                            this.closest('form').submit();" 
+                            this.closest('form').submit();"
                             class="nav-link underline text-sm text-gray-600 hover:text-gray-900" href="route('logout')" >
                                 <i class="fa fa-power -off"></i>{{ __('Log Out') }}</a>
                     </form>

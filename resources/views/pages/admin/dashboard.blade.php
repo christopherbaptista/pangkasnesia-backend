@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.admin.default')
 
 @section('content')
 <!-- Animated -->
@@ -119,7 +119,7 @@
     <!-- /.orders -->
 <!-- /#add-category -->
 </div>
-<!-- .animated -->    
+<!-- .animated -->
 @endsection
 
 @push('after-script')

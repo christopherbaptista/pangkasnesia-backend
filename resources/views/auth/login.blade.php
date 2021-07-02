@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <img src="{{url('images/logo-pangkasnesia1.png')}}" style="width: 20%; height: 20%; margin: 0 auto">
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -42,7 +42,7 @@
                 <x-jet-button class="ml-4">
                     {{ __('Login') }}
                 </x-jet-button>
-            </div> 
+            </div>
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>
