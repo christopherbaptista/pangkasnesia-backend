@@ -51,10 +51,18 @@ class ProductGalleryController extends Controller
     public function create()
     {
         $products = Product::all();
+        $role = Auth::user()->roles;
+        if($role == 2){
+            return view('pages.admin.product-galleries.create')->with([
+                'products' => $products
+            ]);
+        }
+        else{
+            return view('pages.partner.product-galleries.create')->with([
+                'products' => $products
+            ]);
+        }
 
-        return view('pages.admin.product-galleries.create')->with([
-            'products' => $products
-        ]);
     }
 
     /**

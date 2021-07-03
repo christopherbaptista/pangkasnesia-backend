@@ -38,6 +38,9 @@
                 <li class="">
                     <a href="{{ route('users.index')}}"> <i class="menu-icon fa fa-users"></i>Lihat Pengguna</a>
                 </li>
+                <li class="">
+                    <a href="{{ route('partners.index')}}"> <i class="menu-icon fa fa-handshake"></i>Lihat Mitra</a>
+                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>

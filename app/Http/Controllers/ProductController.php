@@ -31,11 +31,17 @@ class ProductController extends Controller
     {
         $items = Product::all();
         $role = Auth::user()->roles;
-        if($role==1){
+        if($role==2){
             return view('pages.admin.products.index')->with([
                 'items' => $items
             ]);
-        }else{
+        }
+        elseif($role==1){
+            return view('pages.partner.products.index')->with([
+                'items' => $items
+            ]);
+        }
+        else{
             return view('pages.user.products.index')->with([
                 'items' => $items
             ]);
