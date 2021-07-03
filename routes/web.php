@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('http://localhost:8081/#/');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

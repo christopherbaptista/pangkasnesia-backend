@@ -8,7 +8,11 @@
     </div>
     <div class="top-right">
         <div class="header-menu">
-
+            <div class="mt-3">
+                <a href="http://localhost:8081/#/Home">
+                    <i class="fa fa-home"></i>
+                </a>
+            </div>
             <div class="user-area dropdown float-right">
                 <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="user-avatar rounded-circle" src="{{ url('images/admin.jpg') }}" alt="User">
