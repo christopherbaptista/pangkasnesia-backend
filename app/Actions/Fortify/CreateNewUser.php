@@ -25,6 +25,7 @@ class CreateNewUser implements CreatesNewUsers
             'lastname' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
             'password' => $this->passwordRules(),
+            'roles' => ['required', 'integer', 'between:0,1'],
         ])->validate();
 
         return User::create([
@@ -32,6 +33,7 @@ class CreateNewUser implements CreatesNewUsers
             'lastname' => $input['lastname'],
             'username' => $input['username'],
             'email' => $input['email'],
+            'roles' => $input['roles'],
             'password' => Hash::make($input['password']),
         ]);
     }

@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <img src="{{url('images/logo-pangkasnesia1.png')}}" style="width: 20%; height: 20%; margin: 0 auto">
         </x-slot>
 
         <div x-data="{ recovery: false }">

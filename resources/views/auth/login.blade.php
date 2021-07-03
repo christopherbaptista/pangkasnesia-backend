@@ -1,33 +1,36 @@
 <x-guest-layout>
-    <x-jet-authentication-card>
+    <x-auth-card>
         <x-slot name="logo">
             <img src="{{url('images/logo-pangkasnesia1.png')}}" style="width: 20%; height: 20%; margin: 0 auto">
         </x-slot>
 
-        <x-jet-validation-errors class="mb-4" />
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
-        @if (session('status'))
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ session('status') }}
-        </div>
-        @endif
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
+            <!-- Email Address -->
             <div class="mt-4">
-                <x-jet-label value="{{ __('Username') }}" />
-                <x-jet-input class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
+                <x-label for="username" :value="__('Username')" />
+
+                <x-input id="username" class="block mt-1 w-full" type="text" name="username" required autofocus />
             </div>
 
+            <!-- Password -->
             <div class="mt-4">
-                <x-jet-label value="{{ __('Password') }}" />
-                <x-jet-input class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-label for="password" :value="__('Password')" />
+
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
+            <!-- Remember Me -->
             <div class="block mt-4">
-                <label class="flex items-center">
-                    <input type="checkbox" class="form-checkbox" name="remember">
+                <label for="remember_me" class="flex items-center">
+                    <input id="remember_me" type="checkbox" class="form-checkbox" name="remember">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
             </div>
@@ -39,10 +42,10 @@
                 </a>
                 @endif
 
-                <x-jet-button class="ml-4">
+                <x-button class="ml-3">
                     {{ __('Login') }}
-                </x-jet-button>
+                </x-button>
             </div>
         </form>
-    </x-jet-authentication-card>
+    </x-auth-card>
 </x-guest-layout>

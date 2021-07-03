@@ -1,42 +1,57 @@
 <x-guest-layout>
-    <x-jet-authentication-card>
+    <x-auth-card>
         <x-slot name="logo">
             <img src="{{url('images/logo-pangkasnesia1.png')}}" style="width: 20%; height: 20%; margin: 0 auto">
         </x-slot>
 
-        <x-jet-validation-errors class="mb-4" />
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
             <div class="mt-4">
-                <x-jet-label value="{{ __('First Name') }}" />
-                <x-jet-input class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus autocomplete="firstname" />
+                <x-label for="firstname" :value="__('First Name')" />
+
+                <x-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" required autofocus />
+            </div>
+            <div class="mt-4">
+                <x-label for="lastname" :value="__('Last Name')" />
+
+                <x-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" required />
+            </div>
+            <div class="mt-4">
+                <x-label for="username" :value="__('Username')" />
+
+                <x-input id="username" class="block mt-1 w-full" type="text" name="username" required />
+            </div>
+
+            <!-- Email Address -->
+            <div class="mt-4">
+                <x-label for="email" :value="__('Email')" />
+
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email"  />
+            </div>
+
+            <!-- Password -->
+            <div class="mt-4">
+                <x-label for="password" :value="__('Password')" />
+
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mt-4">
+                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
             </div>
 
             <div class="mt-4">
-                <x-jet-label value="{{ __('Last Name') }}" />
-                <x-jet-input class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" required autocomplete="lastname" />
-            </div>
+                <x-label for="roles" :value="__('Roles')" />
+                <p style="font-size: smaller;">0 for Member, 1 for Partner</p> 
 
-            <div class="mt-4">
-                <x-jet-label value="{{ __('Username') }}" />
-                <x-jet-input class="block mt-1 w-full" type="text" name="username" :value="old('username')" autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label value="{{ __('Email') }}" />
-                <x-jet-input class="block mt-1 w-full" type="email" name="email" :value="old('email')"  />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label value="{{ __('Password') }}" />
-                <x-jet-input class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label value="{{ __('Confirm Password') }}" />
-                <x-jet-input class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                <x-input id="roles" class="block mt-1 w-full" type="integer" name="roles" required />
             </div>
 
             <div class="flex items-center justify-end mt-4">
@@ -49,5 +64,5 @@
                 </x-jet-button>
             </div>
         </form>
-    </x-jet-authentication-card>
+    </x-auth-card>
 </x-guest-layout>

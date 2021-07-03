@@ -26,7 +26,7 @@ class DashboardController extends Controller
             'success' => Transaction::where('transaction_status','SUCCESS')->count(),
         ];
 
-        if($role == '1'){
+        if($role == 1){
             return view('pages.partner.dashboard')->with([
                 'income' => $income,
                 'sales' => $sales,
