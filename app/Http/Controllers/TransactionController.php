@@ -29,15 +29,10 @@ class TransactionController extends Controller
         $items = Transaction::all();
         $role = Auth::user()->roles;
 
-        if($role == 1){
-            return view('pages.admin.transactions.index')->with([
-                'items' => $items
-            ]);
-        }else{
-            return view('pages.user.transactions.index')->with([
-                'items' => $items
-            ]);
-        }
+        return view('pages.admin.transactions.index')->with([
+            'items' => $items
+        ]);
+        
 
     }
 

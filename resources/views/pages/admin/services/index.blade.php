@@ -14,10 +14,10 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Name</th>
-                      <th>Category</th>
-                      <th>Price</th>
-                      <th>Action</th>
+                      <th>Nama</th>
+                      <th>Kategori</th>
+                      <th>Harga</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>

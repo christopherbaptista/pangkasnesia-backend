@@ -30,12 +30,13 @@ class ProductGalleryController extends Controller
         $items = ProductGallery::with('product')->get();
         $role = Auth::user()->roles;
 
-        if($role == 1){
+        if($role == 2){
             return view('pages.admin.product-galleries.index')->with([
                 'items' => $items
             ]);
-        }else{
-            return view('pages.user.product-galleries.index')->with([
+        }
+        else{
+            return view('pages.partner.product-galleries.index')->with([
                 'items' => $items
             ]);
         }

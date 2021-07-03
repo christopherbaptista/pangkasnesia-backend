@@ -31,13 +31,13 @@
                     <a href="{{route('services.create')}}"> <i class="menu-icon fa fa-plus"></i>Tambah Layanan</a>
                 </li>
 
-                <li class="menu-title">Administrator</li><!-- /.menu-title -->
+                {{-- <li class="menu-title">Administrator</li><!-- /.menu-title -->
                 <li class="">
                     <a href="{{ route('transactions.index') }}"> <i class="menu-icon fa fa-bar-chart-o"></i>Lihat Transaksi</a>
                 </li>
                 <li class="">
                     <a href="{{ route('users.index')}}"> <i class="menu-icon fa fa-users"></i>Lihat Pengguna</a>
-                </li>
+                </li> --}}
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>

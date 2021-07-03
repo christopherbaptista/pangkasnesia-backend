@@ -1,4 +1,4 @@
-@extends('layouts.user.default')
+@extends('layouts.partner.default')
 
 @section('content')
     <div class="orders">
@@ -28,7 +28,7 @@
                         <td>{{ $action->category }}</td>
                         <td>{{ $action->price }}</td>
                         <td>
-                          {{-- <a href="{{ route('services.edit', $action->id) }}" class="btn btn-primary btn-sm">
+                          <a href="{{ route('services.edit', $action->id) }}" class="btn btn-primary btn-sm">
                             <i class="fa fa-pencil"></i>
                           </a>
                           <form action="{{ route('services.destroy', $action->id) }}"
@@ -39,7 +39,7 @@
                             <button class="btn btn-danger btn-sm">
                               <i class="fa fa-trash"></i>
                             </button>
-                          </form> --}}
+                          </form>
                         </td>
                       </tr>
                     @empty

@@ -30,11 +30,17 @@ class ServiceController extends Controller
     {
         $actions = Service::all();
         $role = Auth::user()->roles;
-        if($role==1){
+        if($role==2){
             return view('pages.admin.services.index')->with([
                 'actions' => $actions
             ]);
-        }else{
+        }
+        elseif($role==1){
+            return view('pages.partner.services.index')->with([
+                'actions' => $actions
+            ]);
+        }
+        else{
             return view('pages.user.services.index')->with([
                 'actions' => $actions
             ]);
@@ -49,7 +55,15 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.services.create');
+        $role = Auth::user()->roles;
+
+        if($role == 2){
+            return view('pages.admin.services.create');
+        }
+        else{
+            return view('pages.partner.services.create');
+        }
+
     }
 
     /**
@@ -87,10 +101,18 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $action = Service::findOrFail($id);
+        $role = Auth::user()->roles;
 
-        return view('pages.admin.services.edit')->with([
-            'action' => $action
-        ]);
+        if($role == 2){
+            return view('pages.admin.services.edit')->with([
+                'action' => $action
+            ]);
+        }
+        else{
+            return view('pages.partner.services.edit')->with([
+                'action' => $action
+            ]);
+        }
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends('layouts.user.default')
+@extends('layouts.admin.default')
 
 @section('content')
     <div class="orders">
@@ -6,7 +6,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h4 class="box-title">Daftar Layanan</h4>
+              <h4 class="box-title">Daftar Pelanggan</h4>
             </div>
             <div class="card-body--">
               <div class="table-stats order-table ov-h">
@@ -14,24 +14,21 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Nama</th>
-                      <th>Kategori</th>
-                      <th>Harga</th>
+                      <th>Nama Depan</th>
+                      <th>Nama Belakang</th>
+                      <th>Email</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @forelse ($actions as $action)
+                    @forelse ($users as $user)
                       <tr>
-                        <td>{{ $action->id }}</td>
-                        <td>{{ $action->name }}</td>
-                        <td>{{ $action->category }}</td>
-                        <td>{{ $action->price }}</td>
+                        <td>{{ $user->id }}</td>
+                        <td>{{ $user->firstname }}</td>
+                        <td>{{ $user->lastname }}</td>
+                        <td>{{ $user->email }}</td>
                         <td>
-                          {{-- <a href="{{ route('services.edit', $action->id) }}" class="btn btn-primary btn-sm">
-                            <i class="fa fa-pencil"></i>
-                          </a>
-                          <form action="{{ route('services.destroy', $action->id) }}"
+                          <form action="{{ route('users.destroy', $user->id) }}"
                                 method="post"
                                 class="d-inline">
                             @csrf
@@ -39,7 +36,7 @@
                             <button class="btn btn-danger btn-sm">
                               <i class="fa fa-trash"></i>
                             </button>
-                          </form> --}}
+                          </form>
                         </td>
                       </tr>
                     @empty

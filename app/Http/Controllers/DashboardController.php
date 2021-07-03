@@ -27,13 +27,22 @@ class DashboardController extends Controller
         ];
 
         if($role == '1'){
+            return view('pages.partner.dashboard')->with([
+                'income' => $income,
+                'sales' => $sales,
+                'items' => $items,
+                'pie' => $pie
+            ]);
+        }
+        elseif($role == 2){
             return view('pages.admin.dashboard')->with([
                 'income' => $income,
                 'sales' => $sales,
                 'items' => $items,
                 'pie' => $pie
             ]);
-        }else{
+        }
+        else{
             return view('pages.user.dashboard')->with([
                 'income' => $income,
                 'sales' => $sales,

@@ -1,4 +1,4 @@
-@extends('layouts.user.default')
+@extends('layouts.partner.default')
 
 @section('content')
     <div class="orders">
@@ -6,7 +6,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h4 class="box-title">Daftar Layanan</h4>
+              <h4 class="box-title">Daftar Produk</h4>
             </div>
             <div class="card-body--">
               <div class="table-stats order-table ov-h">
@@ -15,23 +15,29 @@
                     <tr>
                       <th>#</th>
                       <th>Nama</th>
-                      <th>Kategori</th>
+                      <th>Tipe</th>
                       <th>Harga</th>
+                      <th>Kuantiti</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @forelse ($actions as $action)
+                    @forelse ($items as $item)
                       <tr>
-                        <td>{{ $action->id }}</td>
-                        <td>{{ $action->name }}</td>
-                        <td>{{ $action->category }}</td>
-                        <td>{{ $action->price }}</td>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->type }}</td>
+                        <td>Rp{{ $item->price }}</td>
+                        <td>{{ $item->quantity }}</td>
                         <td>
-                          {{-- <a href="{{ route('services.edit', $action->id) }}" class="btn btn-primary btn-sm">
+                          <a href="{{ route('products.gallery', $item->id) }}" class="btn btn-info btn-sm">
+                          {{-- <a href="#" class="btn btn-info btn-sm"> --}}
+                            <i class="fa fa-picture-o"></i>
+                          </a>
+                          <a href="{{ route('products.edit', $item->id) }}" class="btn btn-primary btn-sm">
                             <i class="fa fa-pencil"></i>
                           </a>
-                          <form action="{{ route('services.destroy', $action->id) }}"
+                          <form action="{{ route('products.destroy', $item->id) }}"
                                 method="post"
                                 class="d-inline">
                             @csrf
@@ -39,7 +45,7 @@
                             <button class="btn btn-danger btn-sm">
                               <i class="fa fa-trash"></i>
                             </button>
-                          </form> --}}
+                          </form>
                         </td>
                       </tr>
                     @empty

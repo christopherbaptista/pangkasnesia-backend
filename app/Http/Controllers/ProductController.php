@@ -50,7 +50,14 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.products.create');
+        $role = Auth::user()->roles;
+        if($role == 2){
+            return view('pages.admin.products.create');
+        }
+        else{
+            return view('pages.partner.products.create');
+        }
+
     }
 
     /**
@@ -61,6 +68,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
 
@@ -88,10 +96,19 @@ class ProductController extends Controller
     public function edit($id)
     {
         $item = Product::findOrFail($id);
+        $role = Auth::user()->roles;
 
-        return view('pages.admin.products.edit')->with([
-            'item' => $item
-        ]);
+        if($role == 2){
+            return view('pages.admin.products.edit')->with([
+                'item' => $item
+            ]);
+        }
+        else{
+            return view('pages.partner.products.edit')->with([
+                'item' => $item
+            ]);
+        }
+
     }
 
     /**
@@ -135,14 +152,14 @@ class ProductController extends Controller
         $items = ProductGallery::with('product')
             ->where('products_id', $id)
             ->get();
-        if($role == 1){
+        if($role == 2){
             return view('pages.admin.products.gallery')->with([
                 'product' => $product,
                 'items' => $items
             ]);
         }
         else{
-            return view('pages.user.products.gallery')->with([
+            return view('pages.user.partner.gallery')->with([
                 'product' => $product,
                 'items' => $items
             ]);

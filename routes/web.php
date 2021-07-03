@@ -28,6 +28,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::resource('services', '\App\Http\Controllers\ServiceController');
 
+    Route::resource('users', '\App\Http\Controllers\UserManagementController');
+
     Route::get('transactions/{id}/set-status', '\App\Http\Controllers\TransactionController@setStatus')
         ->name('transactions.status');
     Route::resource('transactions', '\App\Http\Controllers\TransactionController');
