@@ -50,6 +50,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->name('services.gallery');
     Route::resource('services', '\App\Http\Controllers\ServiceController');
     Route::resource('service-galleries', '\App\Http\Controllers\ServiceGalleryController');
+    Route::resource('service-reviews', '\App\Http\Controllers\ServiceReviewController');
 
     Route::resource('users', '\App\Http\Controllers\UserManagementController');
     Route::resource('partners', '\App\Http\Controllers\PartnerManagementController');

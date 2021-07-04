@@ -14,4 +14,13 @@ class Service extends Model
         'name', 'category', 'description', 'price', 'slug'
     ];
 
+    public function galleries()
+    {
+        return $this->hasMany(ServiceGallery::class,'services_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(ServiceReview::class,'services_id');
+    }
 }

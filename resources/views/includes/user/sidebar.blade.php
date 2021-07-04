@@ -18,7 +18,7 @@
                     <a href="{{ route('product-reviews.index') }}"> <i class="menu-icon fa fa-comments"></i>Reviews</a>
                 </li>
                 <li class="">
-                    <a href="{{ route('product-reviews.create') }}"> <i class="menu-icon fa fa-comments"></i>Berikan Reviews</a>
+                    <a href="{{ route('product-reviews.create') }}"> <i class="menu-icon fa fa-plus"></i>Berikan Reviews</a>
                 </li>
 
                 {{-- <li class="menu-title">Foto Produk</li><!-- /.menu-title -->
@@ -37,7 +37,10 @@
                     <a href="{{route('services.create')}}"> <i class="menu-icon fa fa-plus"></i>Tambah Layanan</a>
                 </li> --}}
                 <li class="">
-                    <a href=""> <i class="menu-icon fa fa-comments"></i>Reviews</a>
+                    <a href="{{ route('service-reviews.index') }}"> <i class="menu-icon fa fa-comments"></i>Reviews</a>
+                </li>
+                <li class="">
+                    <a href="{{ route('service-reviews.create') }}"> <i class="menu-icon fa fa-plus"></i>Berikan Reviews</a>
                 </li>
 
                 {{-- <li class="menu-title">Foto Layanan</li><!-- /.menu-title -->
