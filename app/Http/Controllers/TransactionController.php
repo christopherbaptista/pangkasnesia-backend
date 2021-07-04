@@ -29,10 +29,21 @@ class TransactionController extends Controller
         $items = Transaction::all();
         $role = Auth::user()->roles;
 
-        return view('pages.admin.transactions.index')->with([
-            'items' => $items
-        ]);
-        
+        if($role == 2){
+            return view('pages.admin.transactions.index')->with([
+                'items' => $items
+            ]);
+        }
+        else if($role == 1){
+            return view('pages.partner.transactions.index')->with([
+                'items' => $items
+            ]);
+        }
+        else {
+            return view('pages.user.transactions.index')->with([
+                'items' => $items
+            ]);
+        }
 
     }
 
@@ -66,9 +77,22 @@ class TransactionController extends Controller
     public function show($id)
     {
         $item = Transaction::with('details.product')->findOrFail($id);
-        return view('pages.admin.transactions.show')->with([
-            'item' => $item
-        ]);
+        $role = Auth::user()->roles;
+        if($role == 2){
+            return view('pages.admin.transactions.show')->with([
+                'item' => $item
+            ]);
+        }
+        else if($role == 1){
+            return view('pages.partner.transactions.show')->with([
+                'item' => $item
+            ]);
+        }
+        else {
+            return view('pages.user.transactions.show')->with([
+                'item' => $item
+            ]);
+        }
     }
 
     /**

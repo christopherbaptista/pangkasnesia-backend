@@ -165,7 +165,7 @@ class ProductController extends Controller
             ]);
         }
         else{
-            return view('pages.user.partner.gallery')->with([
+            return view('pages.user.products.gallery')->with([
                 'product' => $product,
                 'items' => $items
             ]);

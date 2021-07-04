@@ -36,7 +36,7 @@ class ServiceGalleryController extends Controller
                 'items' => $items
             ]);
         }
-        else{
+        else if($role == 1){
             return view('pages.partner.service-galleries.index')->with([
                 'items' => $items
             ]);

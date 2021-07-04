@@ -39,10 +39,10 @@
 
                 <li class="menu-title">Foto Layanan</li><!-- /.menu-title -->
                 <li class="">
-                    <a href="{{ route('product-galleries.index') }}"> <i class="menu-icon fa fa-image"></i>Lihat Foto Layanan</a>
+                    <a href="{{ route('service-galleries.index') }}"> <i class="menu-icon fa fa-image"></i>Lihat Foto Layanan</a>
                 </li>
                 <li class="">
-                    <a href="{{ route('product-galleries.create') }}"> <i class="menu-icon fa fa-plus"></i>Tambah Foto Layanan</a>
+                    <a href="{{ route('service-galleries.create') }}"> <i class="menu-icon fa fa-plus"></i>Tambah Foto Layanan</a>
                 </li>
 
                 <li class="menu-title">Partnership</li><!-- /.menu-title -->

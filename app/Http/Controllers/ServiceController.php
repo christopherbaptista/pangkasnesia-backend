@@ -35,7 +35,7 @@ class ServiceController extends Controller
                 'items' => $items
             ]);
         }
-        elseif($role==1){
+        else if($role==1){
             return view('pages.partner.services.index')->with([
                 'items' => $items
             ]);
@@ -60,7 +60,7 @@ class ServiceController extends Controller
         if($role == 2){
             return view('pages.admin.services.create');
         }
-        else{
+        else if ($role == 1){
             return view('pages.partner.services.create');
         }
 
@@ -108,7 +108,7 @@ class ServiceController extends Controller
                 'item' => $item
             ]);
         }
-        else{
+        else if($role == 1){
             return view('pages.partner.services.edit')->with([
                 'item' => $item
             ]);
@@ -161,8 +161,14 @@ class ServiceController extends Controller
                 'items' => $items
             ]);
         }
-        else{
-            return view('pages.user.partner.gallery')->with([
+        else if($role == 1){
+            return view('pages.partner.services.gallery')->with([
+                'service' => $service,
+                'items' => $items
+            ]);
+        }
+        else {
+            return view('pages.user.services.gallery')->with([
                 'service' => $service,
                 'items' => $items
             ]);
