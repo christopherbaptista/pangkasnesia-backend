@@ -10,6 +10,8 @@ use App\Repositories\ProductGalleryRepository;
 use App\Repositories\ProductGalleryRepositoryInterface;
 use App\Repositories\ServiceRepository;
 use App\Repositories\ServiceRepositoryInterface;
+use App\Repositories\ServiceGalleryRepository;
+use App\Repositories\ServiceGalleryRepositoryInterface;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -32,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             ServiceRepositoryInterface::class,
             ServiceRepository::class
+        );
+        $this->app->bind(
+            ServiceGalleryRepositoryInterface::class,
+            ServiceGalleryRepository::class
         );
     }
 
