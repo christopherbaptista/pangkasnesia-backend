@@ -49,9 +49,10 @@
 
             <div class="mt-4">
                 <x-label for="roles" :value="__('Roles')" />
-                <p style="font-size: smaller;">0 for Member, 1 for Partner</p> 
+                {{-- <p style="font-size: smaller;">0 for Member, 1 for Partner</p>  --}}
+                <x-label for="roles"><x-input type="radio" id="roles" value=0 name="roles"/>Member</x-label>
+                <x-label for="roles"><x-input type="radio" id="roles" value=1 name="roles"/>Partner</x-label>
 
-                <x-input id="roles" class="block mt-1 w-full" type="integer" name="roles" required />
             </div>
 
             <div class="flex items-center justify-end mt-4">
