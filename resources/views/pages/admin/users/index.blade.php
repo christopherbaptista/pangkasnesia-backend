@@ -14,7 +14,8 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Nama Pengguna</th>
+                      <th>Nama Depan</th>
+                      <th>Nama Belakang</th>
                       <th>Email</th>
                       <th>Aksi</th>
                     </tr>
@@ -23,7 +24,8 @@
                     @forelse ($users as $user)
                       <tr>
                         <td>{{ $user->id }}</td>
-                        <td>{{ $user->firstname}} {{$user->lastname}}</td>
+                        <td>{{ $user->firstname }}</td>
+                        <td>{{ $user->lastname }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
                           <form action="{{ route('users.destroy', $user->id) }}"

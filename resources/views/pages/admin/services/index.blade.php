@@ -21,21 +21,17 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @forelse ($items as $item)
+                    @forelse ($actions as $action)
                       <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->category }}</td>
-                        <td>{{ $item->price }}</td>
+                        <td>{{ $action->id }}</td>
+                        <td>{{ $action->name }}</td>
+                        <td>{{ $action->category }}</td>
+                        <td>{{ $action->price }}</td>
                         <td>
-                          <a href="{{ route('services.gallery', $item->id) }}" class="btn btn-info btn-sm">
-                          {{-- <a href="#" class="btn btn-info btn-sm"> --}}
-                            <i class="fa fa-picture-o"></i>
-                          </a>
-                          <a href="{{ route('services.edit', $item->id) }}" class="btn btn-primary btn-sm">
+                          <a href="{{ route('services.edit', $action->id) }}" class="btn btn-primary btn-sm">
                             <i class="fa fa-pencil"></i>
                           </a>
-                          <form item="{{ route('services.destroy', $item->id) }}"
+                          <form action="{{ route('services.destroy', $action->id) }}"
                                 method="post"
                                 class="d-inline">
                             @csrf
