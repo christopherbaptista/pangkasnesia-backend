@@ -9,6 +9,7 @@ use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Repositories\ProductRepositoryInterface;
 
 class ProductController extends Controller
 {
@@ -17,11 +18,14 @@ class ProductController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    private $repository;
+
+    public function __construct(ProductRepositoryInterface $repository)
     {
+        $this->repository = $repository;
         $this->middleware('auth');
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -29,8 +33,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $items = Product::all();
-        $role = Auth::user()->roles;
+        $items = $this->repository->listItems();
+        $role = $this->repository->getRole();
         if($role==2){
             return view('pages.admin.products.index')->with([
                 'items' => $items
@@ -56,7 +60,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $role = Auth::user()->roles;
+        $role = $this->repository->getRole();
         if($role == 2){
             return view('pages.admin.products.create');
         }
@@ -75,9 +79,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
 
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->name);
-
+        $data = $this->repository->handleStore($request);
         Product::create($data);
         return redirect()->route('products.index');
     }
@@ -101,8 +103,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $item = Product::findOrFail($id);
-        $role = Auth::user()->roles;
+        $item = $this->repository->findItem($id);
+        $role = $this->repository->getRole();
 
         if($role == 2){
             return view('pages.admin.products.edit')->with([
@@ -126,10 +128,8 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->name);
-
-        $item = Product::findOrFail($id);
+        $data = $this->repository->handleStore($request);
+        $item = $this->repository->findItem($id);
         $item->update($data);
 
         return redirect()->route('products.index');
@@ -143,7 +143,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $item = Product::findOrFail($id);
+        $item = $this->repository->findItem($id);
         $item->delete();
 
         ProductGallery::where('products_id', $id)->delete();
@@ -153,8 +153,8 @@ class ProductController extends Controller
 
     public function gallery(Request $request, $id)
     {
-        $role = Auth::user()->roles;
-        $product = Product::findorFail($id);
+        $role = $this->repository->getRole();
+        $product = $this->repository->findItem($id);
         $items = ProductGallery::with('product')
             ->where('products_id', $id)
             ->get();
