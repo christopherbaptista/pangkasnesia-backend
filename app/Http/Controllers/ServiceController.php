@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Repositories\ServiceRepositoryInterface;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ServiceController extends Controller
 {
@@ -181,8 +182,9 @@ class ServiceController extends Controller
     {
         $item = $this->repository->findItem($id);
         $viewing = "Nama Layanan : $item->name\nKategori : $item->category\nHarga : $item->price";
+        $data = QrCode::size(300)->generate($viewing);
         return view('pages.user.order.qrcode')->with([
-            'item' => $viewing
+            'item' => $data
         ]);
     }
 }
