@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductGalleryRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductReviewRequest;
 use App\Models\Product;
-use App\Models\ProductGallery;
+use App\Models\ProductReview;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\ProductGalleryRepositoryInterface;
 
-class ProductGalleryController extends Controller
+class ProductReviewController extends Controller
 {
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    private $repository;
-
-    public function __construct(ProductGalleryRepositoryInterface $repository)
+    public function __construct()
     {
-        $this->repository = $repository;
         $this->middleware('auth');
     }
 
@@ -31,16 +28,21 @@ class ProductGalleryController extends Controller
      */
     public function index()
     {
-        $items = $this->repository->getAllProduct();
-        $role = $this->repository->getRole();
+        $items = ProductReview::with('product')->get();
+        $role = Auth::user()->roles;
 
         if($role == 2){
-            return view('pages.admin.product-galleries.index')->with([
+            return view('pages.admin.product-reviews.index')->with([
                 'items' => $items
             ]);
         }
-        else{
-            return view('pages.partner.product-galleries.index')->with([
+        else if($role == 1){
+            return view('pages.partner.product-reviews.index')->with([
+                'items' => $items
+            ]);
+        }
+        else {
+            return view('pages.user.product-reviews.index')->with([
                 'items' => $items
             ]);
         }
@@ -54,19 +56,13 @@ class ProductGalleryController extends Controller
      */
     public function create()
     {
-        $products = $this->repository->listItems();
-        $role = $this->repository->getRole();
-        if($role == 2){
-            return view('pages.admin.product-galleries.create')->with([
+        $products = Product::all();
+        $role = Auth::user()->roles;
+        if($role == 0){
+            return view('pages.user.product-reviews.create')->with([
                 'products' => $products
             ]);
         }
-        else{
-            return view('pages.partner.product-galleries.create')->with([
-                'products' => $products
-            ]);
-        }
-
     }
 
     /**
@@ -75,12 +71,11 @@ class ProductGalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductGalleryRequest $request)
+    public function store(ProductReviewRequest $request)
     {
-        $data = $this->repository->handleStore($request);
-
-        ProductGallery::create($data);
-        return redirect()->route('product-galleries.index');
+        $data = $request->all();
+        ProductReview::create($data);
+        return redirect()->route('product-reviews.index');
     }
 
     /**
@@ -125,9 +120,9 @@ class ProductGalleryController extends Controller
      */
     public function destroy($id)
     {
-        $item = $this->repository->findItem($id);
+        $item = ProductReview::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('product-galleries.index');
+        return redirect()->route('product-reviews.index');
     }
 }

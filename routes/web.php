@@ -44,6 +44,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->name('products.gallery');
     Route::resource('products', '\App\Http\Controllers\ProductController');
     Route::resource('product-galleries', '\App\Http\Controllers\ProductGalleryController');
+    Route::resource('product-reviews', '\App\Http\Controllers\ProductReviewController');
 
     Route::get('services/{id}/gallery', '\App\Http\Controllers\ServiceController@gallery')
         ->name('services.gallery');
