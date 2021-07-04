@@ -32,7 +32,7 @@
                           {{-- <a href="#" class="btn btn-info btn-sm"> --}}
                             <i class="fa fa-picture-o"></i>
                           </a>
-                          <a href="" class="btn btn-success btn-sm">
+                          <a href="{{ route('services.qrcode', $item->id) }}" class="btn btn-success btn-sm">
                           {{-- <a href="#" class="btn btn-info btn-sm"> --}}
                             <i class="fa fa-qrcode"></i>
                           </a>

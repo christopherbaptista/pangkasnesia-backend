@@ -177,4 +177,12 @@ class ServiceController extends Controller
         }
     }
 
+    public function qrcode($id)
+    {
+        $item = $this->repository->findItem($id);
+        $viewing = "Nama Layanan : $item->name\nKategori : $item->category\nHarga : $item->price";
+        return view('pages.user.order.qrcode')->with([
+            'item' => $viewing
+        ]);
+    }
 }

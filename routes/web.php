@@ -48,6 +48,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('services/{id}/gallery', '\App\Http\Controllers\ServiceController@gallery')
         ->name('services.gallery');
+    Route::get('services/{id}/qrcode', '\App\Http\Controllers\ServiceController@qrcode')
+        ->name('services.qrcode');
     Route::resource('services', '\App\Http\Controllers\ServiceController');
     Route::resource('service-galleries', '\App\Http\Controllers\ServiceGalleryController');
     Route::resource('service-reviews', '\App\Http\Controllers\ServiceReviewController');
