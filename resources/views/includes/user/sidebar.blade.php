@@ -18,11 +18,11 @@
                     <a href="{{ route('product-galleries.index') }}"> <i class="menu-icon fa fa-comments"></i>Reviews</a>
                 </li>
 
-                <li class="menu-title">Foto Produk</li><!-- /.menu-title -->
+                {{-- <li class="menu-title">Foto Produk</li><!-- /.menu-title -->
                 <li class="">
                     <a href="{{ route('product-galleries.index') }}"> <i class="menu-icon fa fa-image"></i>Lihat Foto Produk</a>
                 </li>
-                {{-- <li class="">
+                <li class="">
                     <a href="{{ route('product-galleries.create') }}"> <i class="menu-icon fa fa-plus"></i>Tambah Foto Produk</a>
                 </li> --}}
 
@@ -37,11 +37,11 @@
                     <a href="{{ route('product-galleries.index') }}"> <i class="menu-icon fa fa-comments"></i>Reviews</a>
                 </li>
 
-                <li class="menu-title">Foto Layanan</li><!-- /.menu-title -->
+                {{-- <li class="menu-title">Foto Layanan</li><!-- /.menu-title -->
                 <li class="">
                     <a href="{{ route('service-galleries.index') }}"> <i class="menu-icon fa fa-image"></i>Lihat Foto Layanan</a>
                 </li>
-                {{-- <li class="">
+                <li class="">
                     <a href="{{ route('service-galleries.create') }}"> <i class="menu-icon fa fa-plus"></i>Tambah Foto Layanan</a>
                 </li> --}}
 

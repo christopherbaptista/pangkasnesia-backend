@@ -35,7 +35,7 @@
                           <a href="{{ route('services.edit', $item->id) }}" class="btn btn-primary btn-sm">
                             <i class="fa fa-pencil"></i>
                           </a>
-                          <form item="{{ route('services.destroy', $item->id) }}"
+                          <form action="{{ route('services.destroy', $item->id) }}"
                                 method="post"
                                 class="d-inline">
                             @csrf
