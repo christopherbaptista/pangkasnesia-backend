@@ -8,6 +8,7 @@ use App\Models\ServiceGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Repositories\ServiceRepositoryInterface;
 
 class ServiceController extends Controller
 {
@@ -16,8 +17,12 @@ class ServiceController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    private $repository;
+
+    public function __construct(ServiceRepositoryInterface $repository)
     {
+        $this->repository = $repository;
         $this->middleware('auth');
     }
 
@@ -28,8 +33,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $items = Service::all();
-        $role = Auth::user()->roles;
+        $items = $this->repository->listItems();
+        $role = $this->repository->getRole();
         if($role==2){
             return view('pages.admin.services.index')->with([
                 'items' => $items
@@ -55,7 +60,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $role = Auth::user()->roles;
+        $role = $this->repository->getRole();
 
         if($role == 2){
             return view('pages.admin.services.create');
@@ -74,9 +79,7 @@ class ServiceController extends Controller
      */
     public function store(ServiceRequest $request)
     {
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->name);
-
+        $data = $this->repository->handleStore($request);
         Service::create($data);
         return redirect()->route('services.index');
     }
@@ -100,8 +103,8 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        $item = Service::findOrFail($id);
-        $role = Auth::user()->roles;
+        $item = $this->repository->findItem($id);
+        $role = $this->repository->getRole();
 
         if($role == 2){
             return view('pages.admin.services.edit')->with([
@@ -124,10 +127,9 @@ class ServiceController extends Controller
      */
     public function update(ServiceRequest $request, $id)
     {
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->name);
+        $data = $this->repository->handleStore($request);
 
-        $item = Service::findOrFail($id);
+        $item = $this->repository->findItem($id);
         $item->update($data);
 
         return redirect()->route('services.index');
@@ -141,7 +143,7 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        $item = Service::findOrFail($id);
+        $item = $this->repository->findItem($id);
         $item->delete();
 
 
@@ -150,8 +152,8 @@ class ServiceController extends Controller
 
     public function gallery(Request $request, $id)
     {
-        $role = Auth::user()->roles;
-        $service = Service::findorFail($id);
+        $role = $this->repository->getRole();
+        $service = $this->repository->findItem($id);
         $items = ServiceGallery::with('service')
             ->where('services_id', $id)
             ->get();
