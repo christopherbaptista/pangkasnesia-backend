@@ -6,7 +6,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h4 class="box-title">Daftar Pelanggan</h4>
+              <h4 class="box-title">Daftar Mitra</h4>
             </div>
             <div class="card-body--">
               <div class="table-stats order-table ov-h">
@@ -26,6 +26,9 @@
                         <td>{{ $partner->firstname}} {{$partner->lastname}}</td>
                         <td>{{ $partner->email }}</td>
                         <td>
+                          <a href="{{ route('partners.edit', $partner->id) }}" class="btn btn-primary btn-sm">
+                            <i class="fa fa-pencil"></i>
+                          </a>
                           <form action="{{ route('partners.destroy', $partner->id) }}"
                                 method="post"
                                 class="d-inline">

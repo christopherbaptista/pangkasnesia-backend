@@ -13,6 +13,25 @@ class UserManagementController extends Controller
         $this->middleware('auth');
     }
 
+    public function edit($id)
+    {
+        $users = User::findOrFail($id);
+
+        return view('pages.admin.users.edit')->with([
+            'users' => $users
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+
+        $item = User::findOrFail($id);
+        $item->update($data);
+
+        return redirect()->route('users.index');
+    }
+
     public function index(){
         $users = User::where('roles', 0)->get();
         return view('pages.admin.users.index')->with([

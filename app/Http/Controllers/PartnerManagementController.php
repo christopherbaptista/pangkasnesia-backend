@@ -13,6 +13,25 @@ class PartnerManagementController extends Controller
         $this->middleware('auth');
     }
 
+    public function edit($id)
+    {
+        $partners = User::findOrFail($id);
+
+        return view('pages.admin.partners.edit')->with([
+            'partners' => $partners
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+
+        $item = User::findOrFail($id);
+        $item->update($data);
+
+        return redirect()->route('partners.index');
+    }
+
     public function index(){
         $partners = User::where('roles', 1)->get();
         return view('pages.admin.partners.index')->with([
