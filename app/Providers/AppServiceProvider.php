@@ -12,6 +12,8 @@ use App\Repositories\ServiceRepository;
 use App\Repositories\ServiceRepositoryInterface;
 use App\Repositories\ServiceGalleryRepository;
 use App\Repositories\ServiceGalleryRepositoryInterface;
+use App\Repositories\AccountManagementRepositoryInterface;
+use App\Repositories\AccountManagementRepository;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -38,6 +40,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             ServiceGalleryRepositoryInterface::class,
             ServiceGalleryRepository::class
+        );
+        $this->app->bind(
+            AccountManagementRepositoryInterface::class,
+            AccountManagementRepository::class
         );
     }
 
