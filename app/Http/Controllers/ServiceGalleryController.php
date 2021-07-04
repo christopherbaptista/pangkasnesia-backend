@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaction;
-use App\Models\TransactionDetail;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ServiceGalleryRequest;
+use App\Models\Service;
+use App\Models\ServiceGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TransactionController extends Controller
+class ServiceGalleryController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,13 +28,19 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $items = Transaction::all();
+        $items = ServiceGallery::with('service')->get();
         $role = Auth::user()->roles;
 
-        return view('pages.admin.transactions.index')->with([
-            'items' => $items
-        ]);
-        
+        if($role == 2){
+            return view('pages.admin.service-galleries.index')->with([
+                'items' => $items
+            ]);
+        }
+        else{
+            return view('pages.partner.service-galleries.index')->with([
+                'items' => $items
+            ]);
+        }
 
     }
 
@@ -43,7 +51,19 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        $services = Service::all();
+        $role = Auth::user()->roles;
+        if($role == 2){
+            return view('pages.admin.service-galleries.create')->with([
+                'services' => $services
+            ]);
+        }
+        else{
+            return view('pages.partner.service-galleries.create')->with([
+                'services' => $services
+            ]);
+        }
+
     }
 
     /**
@@ -52,9 +72,15 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ServiceGalleryRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['photo'] = $request->file('photo')->store(
+            'assets/product', 'public'
+        );
+
+        ServiceGallery::create($data);
+        return redirect()->route('service-galleries.index');
     }
 
     /**
@@ -65,10 +91,7 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        $item = Transaction::with('details.product')->findOrFail($id);
-        return view('pages.admin.transactions.show')->with([
-            'item' => $item
-        ]);
+        //
     }
 
     /**
@@ -79,11 +102,7 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        $item = Transaction::findOrFail($id);
-
-        return view('pages.admin.transactions.edit')->with([
-            'item' => $item
-        ]);
+        //
     }
 
     /**
@@ -95,12 +114,7 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-
-        $item = Transaction::findOrFail($id);
-        $item->update($data);
-
-        return redirect()->route('transactions.index');
+        //
     }
 
     /**
@@ -111,23 +125,9 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        $item = Transaction::findOrFail($id);
+        $item = ServiceGallery::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('transactions.index');
-    }
-
-    public function setStatus(Request $request, $id)
-    {
-        $request->validate([
-            'status' => 'required|in:PENDING,SUCCESS,FAILED'
-        ]);
-
-        $item = Transaction::findOrFail($id);
-        $item->transaction_status = $request->status;
-
-        $item->save();
-
-        return redirect()->route('transactions.index');
+        return redirect()->route('service-galleries.index');
     }
 }

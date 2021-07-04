@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use App\Http\Requests\ServiceRequest;
-
+use App\Models\ServiceGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -28,21 +28,21 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $actions = Service::all();
+        $items = Service::all();
         $role = Auth::user()->roles;
         if($role==2){
             return view('pages.admin.services.index')->with([
-                'actions' => $actions
+                'items' => $items
             ]);
         }
         elseif($role==1){
             return view('pages.partner.services.index')->with([
-                'actions' => $actions
+                'items' => $items
             ]);
         }
         else{
             return view('pages.user.services.index')->with([
-                'actions' => $actions
+                'items' => $items
             ]);
         }
 
@@ -100,17 +100,17 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        $action = Service::findOrFail($id);
+        $item = Service::findOrFail($id);
         $role = Auth::user()->roles;
 
         if($role == 2){
             return view('pages.admin.services.edit')->with([
-                'action' => $action
+                'item' => $item
             ]);
         }
         else{
             return view('pages.partner.services.edit')->with([
-                'action' => $action
+                'item' => $item
             ]);
         }
     }
@@ -127,8 +127,8 @@ class ServiceController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
 
-        $action = Service::findOrFail($id);
-        $action->update($data);
+        $item = Service::findOrFail($id);
+        $item->update($data);
 
         return redirect()->route('services.index');
     }
@@ -141,11 +141,32 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        $action = Service::findOrFail($id);
-        $action->delete();
+        $item = Service::findOrFail($id);
+        $item->delete();
 
 
         return redirect()->route('services.index');
+    }
+
+    public function gallery(Request $request, $id)
+    {
+        $role = Auth::user()->roles;
+        $service = Service::findorFail($id);
+        $items = ServiceGallery::with('service')
+            ->where('services_id', $id)
+            ->get();
+        if($role == 2){
+            return view('pages.admin.services.gallery')->with([
+                'service' => $service,
+                'items' => $items
+            ]);
+        }
+        else{
+            return view('pages.user.partner.gallery')->with([
+                'service' => $service,
+                'items' => $items
+            ]);
+        }
     }
 
 }

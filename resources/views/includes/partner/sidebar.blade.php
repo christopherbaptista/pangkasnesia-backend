@@ -9,15 +9,18 @@
                 </li>
                 <li class="menu-title">Produk</li><!-- /.menu-title -->
                 <li class="">
-                  <a href="{{ route('products.index') }}"> <i class="menu-icon fa fa-list"></i>Lihat Produk</a>
+                  <a href="{{ route('products.index') }}"> <i class="menu-icon fa fa-dropbox"></i>Lihat Produk</a>
                 </li>
                 <li class="">
                     <a href="{{ route('products.create') }}"> <i class="menu-icon fa fa-plus"></i>Tambah Produk</a>
                 </li>
+                <li class="">
+                    <a href="{{ route('product-galleries.index') }}"> <i class="menu-icon fa fa-comments"></i>Reviews</a>
+                </li>
 
                 <li class="menu-title">Foto Produk</li><!-- /.menu-title -->
                 <li class="">
-                    <a href="{{ route('product-galleries.index') }}"> <i class="menu-icon fa fa-list"></i>Lihat Foto Produk</a>
+                    <a href="{{ route('product-galleries.index') }}"> <i class="menu-icon fa fa-image"></i>Lihat Foto Produk</a>
                 </li>
                 <li class="">
                     <a href="{{ route('product-galleries.create') }}"> <i class="menu-icon fa fa-plus"></i>Tambah Foto Produk</a>
@@ -25,18 +28,32 @@
 
                 <li class="menu-title">Layanan</li><!-- /.menu-title -->
                 <li class="">
-                    <a href="{{ route('services.index')}}"> <i class="menu-icon fa fa-list"></i>Lihat Layanan</a>
+                    <a href="{{ route('services.index')}}"> <i class="menu-icon fa fa-scissors"></i>Lihat Layanan</a>
                 </li>
                 <li class="">
                     <a href="{{route('services.create')}}"> <i class="menu-icon fa fa-plus"></i>Tambah Layanan</a>
                 </li>
+                <li class="">
+                    <a href="{{ route('product-galleries.index') }}"> <i class="menu-icon fa fa-comments"></i>Reviews</a>
+                </li>
 
-                {{-- <li class="menu-title">Administrator</li><!-- /.menu-title -->
+                <li class="menu-title">Foto Layanan</li><!-- /.menu-title -->
+                <li class="">
+                    <a href="{{ route('product-galleries.index') }}"> <i class="menu-icon fa fa-image"></i>Lihat Foto Layanan</a>
+                </li>
+                <li class="">
+                    <a href="{{ route('product-galleries.create') }}"> <i class="menu-icon fa fa-plus"></i>Tambah Foto Layanan</a>
+                </li>
+
+                <li class="menu-title">Partnership</li><!-- /.menu-title -->
                 <li class="">
                     <a href="{{ route('transactions.index') }}"> <i class="menu-icon fa fa-bar-chart-o"></i>Lihat Transaksi</a>
                 </li>
-                <li class="">
+                {{-- <li class="">
                     <a href="{{ route('users.index')}}"> <i class="menu-icon fa fa-users"></i>Lihat Pengguna</a>
+                </li>
+                <li class="">
+                    <a href="{{ route('partners.index')}}"> <i class="menu-icon fa fa-user-plus"></i>Lihat Mitra</a>
                 </li> --}}
             </ul>
         </div><!-- /.navbar-collapse -->
