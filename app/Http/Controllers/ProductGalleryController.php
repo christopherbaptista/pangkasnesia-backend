@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\ProductGalleryRepositoryInterface;
 
 class ProductGalleryController extends Controller
 {
@@ -15,8 +16,11 @@ class ProductGalleryController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    private $repository;
+
+    public function __construct(ProductGalleryRepositoryInterface $repository)
     {
+        $this->repository = $repository;
         $this->middleware('auth');
     }
 
@@ -27,8 +31,8 @@ class ProductGalleryController extends Controller
      */
     public function index()
     {
-        $items = ProductGallery::with('product')->get();
-        $role = Auth::user()->roles;
+        $items = $this->repository->getAllProduct();
+        $role = $this->repository->getRole();
 
         if($role == 2){
             return view('pages.admin.product-galleries.index')->with([
@@ -50,8 +54,8 @@ class ProductGalleryController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
-        $role = Auth::user()->roles;
+        $products = $this->repository->listItems();
+        $role = $this->repository->getRole();
         if($role == 2){
             return view('pages.admin.product-galleries.create')->with([
                 'products' => $products
@@ -73,10 +77,7 @@ class ProductGalleryController extends Controller
      */
     public function store(ProductGalleryRequest $request)
     {
-        $data = $request->all();
-        $data['photo'] = $request->file('photo')->store(
-            'assets/product', 'public'
-        );
+        $data = $this->repository->handleStore($request);
 
         ProductGallery::create($data);
         return redirect()->route('product-galleries.index');
@@ -124,7 +125,7 @@ class ProductGalleryController extends Controller
      */
     public function destroy($id)
     {
-        $item = ProductGallery::findOrFail($id);
+        $item = $this->repository->findItem();
         $item->delete();
 
         return redirect()->route('product-galleries.index');
