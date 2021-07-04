@@ -2,14 +2,14 @@
 <header id="header" class="header">
     <div class="top-left">
         <div class="navbar-header">
-            <a class="navbar-brand" href="http://localhost:8080/#/Home"><img src="{{ url('images/logo-pangkasnesia.png') }}" alt="Logo"></a>
+            <a class="navbar-brand" href="http://localhost:8081/#/Home"><img src="{{ url('images/logo-pangkasnesia.png') }}" alt="Logo"></a>
             <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
         </div>
     </div>
     <div class="top-right">
         <div class="header-menu">
             <div class="mt-3">
-                <a href="http://localhost:8080/#/Home">
+                <a href="http://localhost:8081/#/Home">
                     <i class="fa fa-home"></i>
                 </a>
             </div>
